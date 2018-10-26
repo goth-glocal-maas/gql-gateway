@@ -1,0 +1,89 @@
+
+type SuccessMessage {
+  message: String
+  name: String!
+}
+
+type Location {
+    name: String!
+    lon: Float!
+    lat: Float!
+    stopId: String
+    arrival: Int
+    departure: Int
+    stopIndex: Int
+    stopSequence: Int
+    vertexType: String
+}
+
+type Step {
+    distance: Float!
+    relativeDirection: String!
+    absoluteDirection: String!
+    streetName: String!
+    lon: Float!
+    lat: Float!
+}
+
+type Geometry {
+    points: String!
+}
+
+type Leg {
+    startTime: Float!
+    endTime: Float!
+    departureDelay: Int!
+    arrivalDelay: Int!
+    realTime: Boolean!
+    distance: Float!
+    pathway: Boolean!
+    mode: String!
+    from: Location!
+    to: Location!
+    legGeometry: Geometry!
+    route: String
+    routeType: Int
+    routeColor: String
+    headsign: String
+    agencyId: String
+    tripId: String
+    duration: Int
+    transitLeg: Boolean
+    steps: [Step!]
+}
+
+type Itinerary {
+    duration: Int
+    startTime: Float
+    endTime: Float
+    walkTime: Int
+    transitTime: Int
+    waitingTime: Int
+    walkingDistance: Float
+    transfers: Int
+    legs: [Leg]
+}
+
+type Plan {
+    date: Float
+    from: Location
+    to: Location
+    itineraries: [Itinerary]
+}
+
+
+type Query {
+    hello(name: String): SuccessMessage!
+    route_plan(
+        date: String!,
+        time: String!,
+        from: String!,
+        to: String!,
+        arriveBy: String,
+        mode: String
+    ): Plan
+}
+
+type Mutation {
+    shout: SuccessMessage!
+}
