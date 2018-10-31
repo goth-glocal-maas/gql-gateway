@@ -25,7 +25,7 @@ type Step {
     lat: Float!
 }
 
-type Geometry {
+type LegGeometry {
     points: String!
 }
 
@@ -40,7 +40,7 @@ type Leg {
     mode: String!
     from: Location!
     to: Location!
-    legGeometry: Geometry!
+    legGeometry: LegGeometry!
     route: String
     routeType: Int
     routeColor: String
@@ -71,6 +71,55 @@ type Plan {
     itineraries: [Itinerary]
 }
 
+type Geometry {
+    type: String!
+    coordinates: [Float!]!
+}
+
+type POIProperties {
+    id: String!
+    layer: String!
+    source: String!
+    source_id: String!
+    name: String!
+    label: String!
+    confidence: Float!
+    distance: Float!
+    accuracy: String!
+}
+
+type GeocodeProperties {
+    id: String!
+    source: String!
+    source_id: String!
+    layer: String!
+    name: String!
+    label: String!
+    confidence: Float!
+    distance: Float!
+    accuracy: String!
+
+    country: String!
+    country_a: String!
+    region: String!
+    county: String!
+    locality: String!
+    neighbourhood: String
+    continent: String!
+}
+
+type ReverseFeature {
+    type: String
+    geometry: Geometry
+    properties: GeocodeProperties
+    bbox: [Float!]
+}
+
+type POIFeature {
+    type: String
+    geometry: Geometry
+    properties: POIProperties
+}
 
 type Query {
     hello(name: String): SuccessMessage!
@@ -82,6 +131,8 @@ type Query {
         arriveBy: String,
         mode: String
     ): Plan
+    poi_search(text: String!): [POIFeature!]
+    reverse_geo(lon: Float!, lat: Float!): [ReverseFeature!]
 }
 
 type Mutation {
