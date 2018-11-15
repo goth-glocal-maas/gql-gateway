@@ -4,6 +4,62 @@ type SuccessMessage {
   name: String!
 }
 
+type StopTimesOnePattern {
+    id: String!
+    desc: String!
+}
+
+type StopTimesUpcomingTimeTable {
+    stopId: String!
+    stopIndex: Int!
+    stopCount: Int!
+    scheduledArrival: Int!
+    scheduledDeparture: Int!
+    realtimeArrival: Int!
+    realtimeDeparture: Int!
+    arrivalDelay: Int!
+    departureDelay: Int!
+    timepoint: Boolean!
+    realtime: Boolean!
+    realtimeState: String!
+    serviceDay: Int!
+    tripId: String!
+    headsign: String
+}
+
+type StopTimesLineAtStop {
+    pattern: StopTimesOnePattern!
+    times: [StopTimesUpcomingTimeTable]
+}
+
+type StopDetail {
+    id: String!
+    name: String!
+    lat: Float!
+    lon: Float!
+    desc: String!
+    locationType: Int!
+    wheelchairBoarding: Int!
+    vehicleType: Int!
+    vehicleTypeSet: Boolean!
+}
+
+type StopBusLine {
+    id: String!
+    shortName: String!
+    longName: String!
+    mode: String!
+    color: String!
+    agencyName: String!
+}
+
+type Stop {
+    id: String!
+    name: String!
+    lat: Float!
+    lon: Float!
+}
+
 type Location {
     name: String!
     lon: Float!
@@ -44,6 +100,7 @@ type Leg {
     route: String
     routeType: Int
     routeColor: String
+    routeTextColor: String
     headsign: String
     agencyId: String
     tripId: String
@@ -133,6 +190,15 @@ type Query {
     ): Plan
     poi_search(text: String!): [POIFeature!]
     reverse_geo(lon: Float!, lat: Float!): [ReverseFeature!]
+    stops(
+        min_lat: Float!
+        min_lon: Float!
+        max_lat: Float!
+        max_lon: Float!
+    ): [Stop]!
+    stop_detail(stop_id: String!): StopDetail
+    stop_route(stop_id: String!): [StopBusLine]
+    stop_stoptimes(stop_id: String!): [StopTimesLineAtStop]
 }
 
 type Mutation {

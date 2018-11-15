@@ -14,16 +14,16 @@ const Query = {
         toPlace: to,
         date,
         time,
-        mode: mode || 'TRANSIT,WALK',
+        mode: mode || 'WALK,TRANSIT',
         arriveBy: arriveBy || false,
         wheelchair: false,
-        maxWalkDistance: 3000,
+        maxWalkDistance: 5000,
         locale: 'en'
       };
-      // console.log(params)
+      //console.log(params)
       const resp = await axios.get(url, { params });
       // console.log('ok: ', resp.data);
-      // console.log(resp.data.plan.itineraries)
+      //console.log('resp: ', resp.data)
       return resp.data.plan;
     } catch (error) {
       // console.log(error);
@@ -48,6 +48,48 @@ const Query = {
       const resp = await axios.get(url, { params });
       console.log(resp.data)
       return resp.data.features;
+    } catch (error) {
+      return []
+    }
+  },
+  async stops(_, { min_lat, min_lon, max_lat, max_lon }) {
+    const url = `https://otp.goth.app/otp/routers/default/index/stops`
+    try {
+      const params = {
+        minLat: min_lat,
+        minLon: min_lon,
+        maxLat: max_lat,
+        maxLon: max_lon,
+      }
+      const resp = await axios.get(url, { params })
+      return resp.data
+    } catch (error) {
+      return []
+    }
+  },
+  async stop_detail(_, { stop_id }) {
+    const url = `https://otp.goth.app/otp/routers/default/index/stops/${stop_id}`
+    try {
+      const resp = await axios.get(url)
+      return resp.data
+    } catch (error) {
+      return []
+    }
+  },
+  async stop_route(_, { stop_id }) {
+    const url = `https://otp.goth.app/otp/routers/default/index/stops/${stop_id}/routes`
+    try {
+      const resp = await axios.get(url)
+      return resp.data
+    } catch (error) {
+      return []
+    }
+  },
+  async stop_stoptimes(_, { stop_id }) {
+    const url = `https://otp.goth.app/otp/routers/default/index/stops/${stop_id}/stoptimes`
+    try {
+      const resp = await axios.get(url)
+      return resp.data
     } catch (error) {
       return []
     }
