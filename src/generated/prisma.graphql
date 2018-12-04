@@ -47,8 +47,24 @@ type Query {
   node(id: ID!): Node
 }
 
+enum RoutePreference {
+  OPTIMAL
+  LESS_TRANSFER
+  LESS_WALKING
+  CHEAP
+  SAFE
+  BETTER_FOR_WALK
+}
+
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+enum TransportMode {
+  TRANSIT
+  BIKE
+  CAR
+  WALK
 }
 
 type User {
@@ -59,6 +75,8 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  transportMode: TransportMode
+  routePrefs: [RoutePreference!]!
 }
 
 type UserConnection {
@@ -74,10 +92,16 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  transportMode: TransportMode
+  routePrefs: UserCreateroutePrefsInput
 }
 
 input UserCreatepermissionsInput {
   set: [Permission!]
+}
+
+input UserCreateroutePrefsInput {
+  set: [RoutePreference!]
 }
 
 type UserEdge {
@@ -98,6 +122,8 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  transportMode_ASC
+  transportMode_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -112,6 +138,8 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  transportMode: TransportMode
+  routePrefs: [RoutePreference!]!
 }
 
 type UserSubscriptionPayload {
@@ -139,6 +167,8 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  transportMode: TransportMode
+  routePrefs: UserUpdateroutePrefsInput
 }
 
 input UserUpdateManyMutationInput {
@@ -148,10 +178,16 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  transportMode: TransportMode
+  routePrefs: UserUpdateroutePrefsInput
 }
 
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpdateroutePrefsInput {
+  set: [RoutePreference!]
 }
 
 input UserWhereInput {
@@ -233,6 +269,10 @@ input UserWhereInput {
   resetTokenExpiry_lte: Float
   resetTokenExpiry_gt: Float
   resetTokenExpiry_gte: Float
+  transportMode: TransportMode
+  transportMode_not: TransportMode
+  transportMode_in: [TransportMode!]
+  transportMode_not_in: [TransportMode!]
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

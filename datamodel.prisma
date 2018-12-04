@@ -28,6 +28,6 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission]
-  preferMode: TransportMode
-  preferRoute: RoutePreference
+  transportMode: TransportMode
+  routePrefs: [RoutePreference]
 }
