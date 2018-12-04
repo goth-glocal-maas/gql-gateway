@@ -4,6 +4,22 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+enum TransportMode {
+  TRANSIT
+  BIKE
+  CAR
+  WALK
+}
+
+enum RoutePreference {
+  OPTIMAL
+  LESS_TRANSFER
+  LESS_WALKING
+  CHEAP
+  SAFE
+  BETTER_FOR_WALK
+}
+
 type User {
   id: ID! @unique
   name: String!
@@ -12,4 +28,6 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission]
+  preferMode: TransportMode
+  preferRoute: RoutePreference
 }
