@@ -1,3 +1,4 @@
+# import * from './generated/prisma.graphql'
 
 type SuccessMessage {
   message: String
@@ -5,202 +6,214 @@ type SuccessMessage {
 }
 
 type StopTimesOnePattern {
-    id: String!
-    desc: String!
+  id: String!
+  desc: String!
 }
 
 type StopTimesUpcomingTimeTable {
-    stopId: String!
-    stopIndex: Int!
-    stopCount: Int!
-    scheduledArrival: Int!
-    scheduledDeparture: Int!
-    realtimeArrival: Int!
-    realtimeDeparture: Int!
-    arrivalDelay: Int!
-    departureDelay: Int!
-    timepoint: Boolean!
-    realtime: Boolean!
-    realtimeState: String!
-    serviceDay: Int!
-    tripId: String!
-    headsign: String
+  stopId: String!
+  stopIndex: Int!
+  stopCount: Int!
+  scheduledArrival: Int!
+  scheduledDeparture: Int!
+  realtimeArrival: Int!
+  realtimeDeparture: Int!
+  arrivalDelay: Int!
+  departureDelay: Int!
+  timepoint: Boolean!
+  realtime: Boolean!
+  realtimeState: String!
+  serviceDay: Int!
+  tripId: String!
+  headsign: String
 }
 
 type StopTimesLineAtStop {
-    pattern: StopTimesOnePattern!
-    times: [StopTimesUpcomingTimeTable]
+  pattern: StopTimesOnePattern!
+  times: [StopTimesUpcomingTimeTable]
 }
 
 type StopDetail {
-    id: String!
-    name: String!
-    lat: Float!
-    lon: Float!
-    desc: String!
-    locationType: Int!
-    wheelchairBoarding: Int!
-    vehicleType: Int!
-    vehicleTypeSet: Boolean!
+  id: String!
+  name: String!
+  lat: Float!
+  lon: Float!
+  desc: String!
+  locationType: Int!
+  wheelchairBoarding: Int!
+  vehicleType: Int!
+  vehicleTypeSet: Boolean!
 }
 
 type StopBusLine {
-    id: String!
-    shortName: String!
-    longName: String!
-    mode: String!
-    color: String!
-    agencyName: String!
+  id: String!
+  shortName: String!
+  longName: String!
+  mode: String!
+  color: String!
+  agencyName: String!
 }
 
 type Stop {
-    id: String!
-    name: String!
-    lat: Float!
-    lon: Float!
+  id: String!
+  name: String!
+  lat: Float!
+  lon: Float!
 }
 
 type Location {
-    name: String!
-    lon: Float!
-    lat: Float!
-    stopId: String
-    arrival: Int
-    departure: Int
-    stopIndex: Int
-    stopSequence: Int
-    vertexType: String
+  name: String!
+  lon: Float!
+  lat: Float!
+  stopId: String
+  arrival: Int
+  departure: Int
+  stopIndex: Int
+  stopSequence: Int
+  vertexType: String
 }
 
 type Step {
-    distance: Float!
-    relativeDirection: String!
-    absoluteDirection: String!
-    streetName: String!
-    lon: Float!
-    lat: Float!
+  distance: Float!
+  relativeDirection: String!
+  absoluteDirection: String!
+  streetName: String!
+  lon: Float!
+  lat: Float!
 }
 
 type LegGeometry {
-    points: String!
+  points: String!
 }
 
 type Leg {
-    startTime: Float!
-    endTime: Float!
-    departureDelay: Int!
-    arrivalDelay: Int!
-    realTime: Boolean!
-    distance: Float!
-    pathway: Boolean!
-    mode: String!
-    from: Location!
-    to: Location!
-    legGeometry: LegGeometry!
-    route: String
-    routeType: Int
-    routeColor: String
-    routeTextColor: String
-    headsign: String
-    agencyId: String
-    tripId: String
-    duration: Int
-    transitLeg: Boolean
-    steps: [Step!]
+  startTime: Float!
+  endTime: Float!
+  departureDelay: Int!
+  arrivalDelay: Int!
+  realTime: Boolean!
+  distance: Float!
+  pathway: Boolean!
+  mode: String!
+  from: Location!
+  to: Location!
+  legGeometry: LegGeometry!
+  route: String
+  routeType: Int
+  routeColor: String
+  routeTextColor: String
+  headsign: String
+  agencyId: String
+  tripId: String
+  duration: Int
+  transitLeg: Boolean
+  steps: [Step!]
 }
 
 type Itinerary {
-    duration: Int
-    startTime: Float
-    endTime: Float
-    walkTime: Int
-    transitTime: Int
-    waitingTime: Int
-    walkingDistance: Float
-    transfers: Int
-    legs: [Leg]
+  duration: Int
+  startTime: Float
+  endTime: Float
+  walkTime: Int
+  transitTime: Int
+  waitingTime: Int
+  walkingDistance: Float
+  transfers: Int
+  legs: [Leg]
 }
 
 type Plan {
-    date: Float
-    from: Location
-    to: Location
-    itineraries: [Itinerary]
+  date: Float
+  from: Location
+  to: Location
+  itineraries: [Itinerary]
 }
 
 type Geometry {
-    type: String!
-    coordinates: [Float!]!
+  type: String!
+  coordinates: [Float!]!
 }
 
 type POIProperties {
-    id: String!
-    layer: String!
-    source: String!
-    source_id: String!
-    name: String!
-    label: String!
-    confidence: Float!
-    distance: Float!
-    accuracy: String!
+  id: String!
+  layer: String!
+  source: String!
+  source_id: String!
+  name: String!
+  label: String!
+  confidence: Float!
+  distance: Float!
+  accuracy: String!
 }
 
 type GeocodeProperties {
-    id: String!
-    source: String!
-    source_id: String!
-    layer: String!
-    name: String!
-    label: String!
-    confidence: Float!
-    distance: Float!
-    accuracy: String!
+  id: String!
+  source: String!
+  source_id: String!
+  layer: String!
+  name: String!
+  label: String!
+  confidence: Float!
+  distance: Float!
+  accuracy: String!
 
-    country: String!
-    country_a: String!
-    region: String!
-    county: String!
-    locality: String!
-    neighbourhood: String
-    continent: String!
+  country: String!
+  country_a: String!
+  region: String!
+  county: String!
+  locality: String!
+  neighbourhood: String
+  continent: String!
 }
 
 type ReverseFeature {
-    type: String
-    geometry: Geometry
-    properties: GeocodeProperties
-    bbox: [Float!]
+  type: String
+  geometry: Geometry
+  properties: GeocodeProperties
+  bbox: [Float!]
 }
 
 type POIFeature {
-    type: String
-    geometry: Geometry
-    properties: POIProperties
+  type: String
+  geometry: Geometry
+  properties: POIProperties
 }
 
 type Query {
-    hello(name: String): SuccessMessage!
-    route_plan(
-        date: String!,
-        time: String!,
-        from: String!,
-        to: String!,
-        arriveBy: String,
-        mode: String
-    ): Plan
-    poi_search(text: String!): [POIFeature!]
-    reverse_geo(lon: Float!, lat: Float!): [ReverseFeature!]
-    stops(
-        min_lat: Float!
-        min_lon: Float!
-        max_lat: Float!
-        max_lon: Float!
-    ): [Stop]!
-    stop_detail(stop_id: String!): StopDetail
-    stop_route(stop_id: String!): [StopBusLine]
-    stop_stoptimes(stop_id: String!): [StopTimesLineAtStop]
+  me: User
+  users: [User]!
+  hello(name: String): SuccessMessage!
+  route_plan(
+    date: String!
+    time: String!
+    from: String!
+    to: String!
+    arriveBy: String
+    mode: String
+  ): Plan
+  poi_search(text: String!): [POIFeature!]
+  reverse_geo(lon: Float!, lat: Float!): [ReverseFeature!]
+  stops(
+    min_lat: Float!
+    min_lon: Float!
+    max_lat: Float!
+    max_lon: Float!
+  ): [Stop]!
+  stop_detail(stop_id: String!): StopDetail
+  stop_route(stop_id: String!): [StopBusLine]
+  stop_stoptimes(stop_id: String!): [StopTimesLineAtStop]
 }
 
 type Mutation {
-    shout: SuccessMessage!
+  shout: SuccessMessage!
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
+  updatePermissions(permissions: [Permission], userId: ID!): User
 }
