@@ -6,13 +6,23 @@
     "start": "nodemon -e js,graphql -x node src/index.js",
     "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
     "test": "jest",
-    "deploy": "prisma deploy --env-file variables.env"
+    "deploy": "prisma deploy"
   },
   "author": "sipp11 <sipp11@zzyzx.co>",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "graphql-cli": "^2.17.0",
     "graphql-yoga": "^1.16.7",
-    "nodemon": "^1.18.4"
+    "jsonwebtoken": "^8.4.0",
+    "nodemon": "^1.18.4",
+    "prisma-binding": "^2.2.8"
+  },
+  "devDependencies": {
+    "graphql": "^14.0.2",
+    "prisma": "^1.21.1"
   }
 }
