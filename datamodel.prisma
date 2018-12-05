@@ -20,6 +20,17 @@ enum RoutePreference {
   BETTER_FOR_WALK
 }
 
+type Geometry {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type SavedPlace {
+  id: ID! @unique
+  name: String!
+  geometry: Geometry
+}
+
 type User {
   id: ID! @unique
   name: String!
@@ -30,4 +41,8 @@ type User {
   permissions: [Permission]
   transportMode: TransportMode
   routePrefs: [RoutePreference]
+  favPlaces: [SavedPlace] @relation(name:"FavPlaces")
+  home: SavedPlace @relation(name:"Home")
+  work: SavedPlace @relation(name:"Work")
+  frequentPlaces: [SavedPlace] @relation(name:"FrequentPlaces")
 }

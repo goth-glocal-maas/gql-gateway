@@ -1,3 +1,11 @@
+type AggregateGeometry {
+  count: Int!
+}
+
+type AggregateSavedPlace {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -6,9 +14,128 @@ type BatchPayload {
   count: Long!
 }
 
+type Geometry {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type GeometryConnection {
+  pageInfo: PageInfo!
+  edges: [GeometryEdge]!
+  aggregate: AggregateGeometry!
+}
+
+input GeometryCreatecoordinatesInput {
+  set: [Float!]
+}
+
+input GeometryCreateInput {
+  type: String!
+  coordinates: GeometryCreatecoordinatesInput
+}
+
+input GeometryCreateOneInput {
+  create: GeometryCreateInput
+}
+
+type GeometryEdge {
+  node: Geometry!
+  cursor: String!
+}
+
+enum GeometryOrderByInput {
+  type_ASC
+  type_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type GeometryPreviousValues {
+  type: String!
+  coordinates: [Float!]!
+}
+
+type GeometrySubscriptionPayload {
+  mutation: MutationType!
+  node: Geometry
+  updatedFields: [String!]
+  previousValues: GeometryPreviousValues
+}
+
+input GeometrySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: GeometryWhereInput
+  AND: [GeometrySubscriptionWhereInput!]
+  OR: [GeometrySubscriptionWhereInput!]
+  NOT: [GeometrySubscriptionWhereInput!]
+}
+
+input GeometryUpdatecoordinatesInput {
+  set: [Float!]
+}
+
+input GeometryUpdateDataInput {
+  type: String
+  coordinates: GeometryUpdatecoordinatesInput
+}
+
+input GeometryUpdateManyMutationInput {
+  type: String
+  coordinates: GeometryUpdatecoordinatesInput
+}
+
+input GeometryUpdateOneInput {
+  create: GeometryCreateInput
+  update: GeometryUpdateDataInput
+  upsert: GeometryUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+}
+
+input GeometryUpsertNestedInput {
+  update: GeometryUpdateDataInput!
+  create: GeometryCreateInput!
+}
+
+input GeometryWhereInput {
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  AND: [GeometryWhereInput!]
+  OR: [GeometryWhereInput!]
+  NOT: [GeometryWhereInput!]
+}
+
 scalar Long
 
 type Mutation {
+  createGeometry(data: GeometryCreateInput!): Geometry!
+  updateManyGeometries(data: GeometryUpdateManyMutationInput!, where: GeometryWhereInput): BatchPayload!
+  deleteManyGeometries(where: GeometryWhereInput): BatchPayload!
+  createSavedPlace(data: SavedPlaceCreateInput!): SavedPlace!
+  updateSavedPlace(data: SavedPlaceUpdateInput!, where: SavedPlaceWhereUniqueInput!): SavedPlace
+  updateManySavedPlaces(data: SavedPlaceUpdateManyMutationInput!, where: SavedPlaceWhereInput): BatchPayload!
+  upsertSavedPlace(where: SavedPlaceWhereUniqueInput!, create: SavedPlaceCreateInput!, update: SavedPlaceUpdateInput!): SavedPlace!
+  deleteSavedPlace(where: SavedPlaceWhereUniqueInput!): SavedPlace
+  deleteManySavedPlaces(where: SavedPlaceWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -41,6 +168,11 @@ enum Permission {
 }
 
 type Query {
+  geometries(where: GeometryWhereInput, orderBy: GeometryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Geometry]!
+  geometriesConnection(where: GeometryWhereInput, orderBy: GeometryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GeometryConnection!
+  savedPlace(where: SavedPlaceWhereUniqueInput!): SavedPlace
+  savedPlaces(where: SavedPlaceWhereInput, orderBy: SavedPlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SavedPlace]!
+  savedPlacesConnection(where: SavedPlaceWhereInput, orderBy: SavedPlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SavedPlaceConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -56,7 +188,162 @@ enum RoutePreference {
   BETTER_FOR_WALK
 }
 
+type SavedPlace {
+  id: ID!
+  name: String!
+  geometry: Geometry
+}
+
+type SavedPlaceConnection {
+  pageInfo: PageInfo!
+  edges: [SavedPlaceEdge]!
+  aggregate: AggregateSavedPlace!
+}
+
+input SavedPlaceCreateInput {
+  name: String!
+  geometry: GeometryCreateOneInput
+}
+
+input SavedPlaceCreateManyInput {
+  create: [SavedPlaceCreateInput!]
+  connect: [SavedPlaceWhereUniqueInput!]
+}
+
+input SavedPlaceCreateOneInput {
+  create: SavedPlaceCreateInput
+  connect: SavedPlaceWhereUniqueInput
+}
+
+type SavedPlaceEdge {
+  node: SavedPlace!
+  cursor: String!
+}
+
+enum SavedPlaceOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SavedPlacePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type SavedPlaceSubscriptionPayload {
+  mutation: MutationType!
+  node: SavedPlace
+  updatedFields: [String!]
+  previousValues: SavedPlacePreviousValues
+}
+
+input SavedPlaceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SavedPlaceWhereInput
+  AND: [SavedPlaceSubscriptionWhereInput!]
+  OR: [SavedPlaceSubscriptionWhereInput!]
+  NOT: [SavedPlaceSubscriptionWhereInput!]
+}
+
+input SavedPlaceUpdateDataInput {
+  name: String
+  geometry: GeometryUpdateOneInput
+}
+
+input SavedPlaceUpdateInput {
+  name: String
+  geometry: GeometryUpdateOneInput
+}
+
+input SavedPlaceUpdateManyInput {
+  create: [SavedPlaceCreateInput!]
+  update: [SavedPlaceUpdateWithWhereUniqueNestedInput!]
+  upsert: [SavedPlaceUpsertWithWhereUniqueNestedInput!]
+  delete: [SavedPlaceWhereUniqueInput!]
+  connect: [SavedPlaceWhereUniqueInput!]
+  disconnect: [SavedPlaceWhereUniqueInput!]
+}
+
+input SavedPlaceUpdateManyMutationInput {
+  name: String
+}
+
+input SavedPlaceUpdateOneInput {
+  create: SavedPlaceCreateInput
+  update: SavedPlaceUpdateDataInput
+  upsert: SavedPlaceUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: SavedPlaceWhereUniqueInput
+}
+
+input SavedPlaceUpdateWithWhereUniqueNestedInput {
+  where: SavedPlaceWhereUniqueInput!
+  data: SavedPlaceUpdateDataInput!
+}
+
+input SavedPlaceUpsertNestedInput {
+  update: SavedPlaceUpdateDataInput!
+  create: SavedPlaceCreateInput!
+}
+
+input SavedPlaceUpsertWithWhereUniqueNestedInput {
+  where: SavedPlaceWhereUniqueInput!
+  update: SavedPlaceUpdateDataInput!
+  create: SavedPlaceCreateInput!
+}
+
+input SavedPlaceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  geometry: GeometryWhereInput
+  AND: [SavedPlaceWhereInput!]
+  OR: [SavedPlaceWhereInput!]
+  NOT: [SavedPlaceWhereInput!]
+}
+
+input SavedPlaceWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
+  geometry(where: GeometrySubscriptionWhereInput): GeometrySubscriptionPayload
+  savedPlace(where: SavedPlaceSubscriptionWhereInput): SavedPlaceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -77,6 +364,10 @@ type User {
   permissions: [Permission!]!
   transportMode: TransportMode
   routePrefs: [RoutePreference!]!
+  favPlaces(where: SavedPlaceWhereInput, orderBy: SavedPlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SavedPlace!]
+  home: SavedPlace
+  work: SavedPlace
+  frequentPlaces(where: SavedPlaceWhereInput, orderBy: SavedPlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SavedPlace!]
 }
 
 type UserConnection {
@@ -94,6 +385,10 @@ input UserCreateInput {
   permissions: UserCreatepermissionsInput
   transportMode: TransportMode
   routePrefs: UserCreateroutePrefsInput
+  favPlaces: SavedPlaceCreateManyInput
+  home: SavedPlaceCreateOneInput
+  work: SavedPlaceCreateOneInput
+  frequentPlaces: SavedPlaceCreateManyInput
 }
 
 input UserCreatepermissionsInput {
@@ -169,6 +464,10 @@ input UserUpdateInput {
   permissions: UserUpdatepermissionsInput
   transportMode: TransportMode
   routePrefs: UserUpdateroutePrefsInput
+  favPlaces: SavedPlaceUpdateManyInput
+  home: SavedPlaceUpdateOneInput
+  work: SavedPlaceUpdateOneInput
+  frequentPlaces: SavedPlaceUpdateManyInput
 }
 
 input UserUpdateManyMutationInput {
@@ -273,6 +572,14 @@ input UserWhereInput {
   transportMode_not: TransportMode
   transportMode_in: [TransportMode!]
   transportMode_not_in: [TransportMode!]
+  favPlaces_every: SavedPlaceWhereInput
+  favPlaces_some: SavedPlaceWhereInput
+  favPlaces_none: SavedPlaceWhereInput
+  home: SavedPlaceWhereInput
+  work: SavedPlaceWhereInput
+  frequentPlaces_every: SavedPlaceWhereInput
+  frequentPlaces_some: SavedPlaceWhereInput
+  frequentPlaces_none: SavedPlaceWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
