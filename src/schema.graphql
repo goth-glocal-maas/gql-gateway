@@ -110,6 +110,32 @@ type Leg {
   steps: [Step!]
 }
 
+type FareCurrency {
+  currency: String
+  defaultFractionDigits: Int
+  currencyCode: String
+  symbol: String
+}
+
+type FarePrice {
+  cents: Int
+  currency: FareCurrency
+}
+
+type FareRegular {
+  fareId: String
+  price: FarePrice
+  routes: [String]
+}
+
+type FareDetail {
+  regular: [FareRegular]
+}
+
+type Fare {
+  details: FareDetail
+}
+
 type Itinerary {
   duration: Int
   startTime: Float
@@ -119,6 +145,7 @@ type Itinerary {
   waitingTime: Int
   walkingDistance: Float
   transfers: Int
+  fare: Fare
   legs: [Leg]
 }
 

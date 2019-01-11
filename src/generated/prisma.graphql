@@ -236,6 +236,40 @@ type SavedPlacePreviousValues {
   name: String!
 }
 
+input SavedPlaceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [SavedPlaceScalarWhereInput!]
+  OR: [SavedPlaceScalarWhereInput!]
+  NOT: [SavedPlaceScalarWhereInput!]
+}
+
 type SavedPlaceSubscriptionPayload {
   mutation: MutationType!
   node: SavedPlace
@@ -264,6 +298,10 @@ input SavedPlaceUpdateInput {
   geometry: GeometryUpdateOneInput
 }
 
+input SavedPlaceUpdateManyDataInput {
+  name: String
+}
+
 input SavedPlaceUpdateManyInput {
   create: [SavedPlaceCreateInput!]
   update: [SavedPlaceUpdateWithWhereUniqueNestedInput!]
@@ -271,10 +309,17 @@ input SavedPlaceUpdateManyInput {
   delete: [SavedPlaceWhereUniqueInput!]
   connect: [SavedPlaceWhereUniqueInput!]
   disconnect: [SavedPlaceWhereUniqueInput!]
+  deleteMany: [SavedPlaceScalarWhereInput!]
+  updateMany: [SavedPlaceUpdateManyWithWhereNestedInput!]
 }
 
 input SavedPlaceUpdateManyMutationInput {
   name: String
+}
+
+input SavedPlaceUpdateManyWithWhereNestedInput {
+  where: SavedPlaceScalarWhereInput!
+  data: SavedPlaceUpdateManyDataInput!
 }
 
 input SavedPlaceUpdateOneInput {

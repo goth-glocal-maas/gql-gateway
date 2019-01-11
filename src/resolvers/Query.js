@@ -48,7 +48,6 @@ const Query = {
       //console.log(params)
       const resp = await axios.get(url, { params });
       // console.log('ok: ', resp.data);
-      //console.log('resp: ', resp.data)
       return resp.data.plan;
     } catch (error) {
       // console.log(error);

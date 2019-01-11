@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "graphql": "^14.0.2",
-    "prisma": "^1.22.2"
+    "prisma": "^1.24.0"
   }
 }
