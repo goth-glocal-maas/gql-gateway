@@ -55,14 +55,15 @@ const Query = {
     }
   },
   async poi_search(_, { text, lat, lon, province }) {
-    const url = `https://poi.everyday.in.th/v1/search`;
+    // const url = `https://poi.everyday.in.th/v1/search`;
+    const url = `http://35.198.247.152/v1/search`;
     try {
       //
       let params = { text: text };
       if (lat && lon) {
         params = { ...params, "focus.point.lat": lat, "focus.point.lon": lon };
       }
-      if (province.lower() === "phuket") {
+      if (province && province.toLowerCase() === "phuket") {
         params = {
           ...params,
           "boundary.rect.min_lon": 98.24344235287894,
@@ -73,14 +74,15 @@ const Query = {
       }
       // console.log(params);
       const resp = await axios.get(url, { params });
-      // console.log(resp.data.features);
+      // console.log(url, resp.data);
       return resp.data.features;
     } catch (error) {
       return [];
     }
   },
   async reverse_geo(_, { lon, lat }) {
-    const url = `https://poi.everyday.in.th/v1/reverse`;
+    // const url = `https://poi.everyday.in.th/v1/reverse`;
+    const url = `http://35.198.247.152/v1/reverse`;
     try {
       const params = { "point.lon": lon, "point.lat": lat };
       const resp = await axios.get(url, { params });
