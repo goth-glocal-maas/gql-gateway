@@ -218,7 +218,12 @@ type Query {
     arriveBy: String
     mode: String
   ): Plan
-  poi_search(text: String!): [POIFeature!]
+  poi_search(
+    text: String!
+    province: String
+    lat: Float
+    lon: Float
+  ): [POIFeature!]
   reverse_geo(lon: Float!, lat: Float!): [ReverseFeature!]
   stops(
     min_lat: Float!
