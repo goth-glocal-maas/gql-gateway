@@ -55,8 +55,7 @@ const Query = {
     }
   },
   async poi_search(_, { text, lat, lon, province }) {
-    // const url = `https://poi.everyday.in.th/v1/search`;
-    const url = `http://35.198.247.152/v1/search`;
+    const url = `https://poi.everyday.in.th/v1/search`;
     try {
       //
       let params = { text: text };
@@ -81,8 +80,7 @@ const Query = {
     }
   },
   async reverse_geo(_, { lon, lat }) {
-    // const url = `https://poi.everyday.in.th/v1/reverse`;
-    const url = `http://35.198.247.152/v1/reverse`;
+    const url = `https://poi.everyday.in.th/v1/reverse`;
     try {
       const params = { "point.lon": lon, "point.lat": lat };
       const resp = await axios.get(url, { params });
